@@ -8,8 +8,8 @@ var stream = require('JSONStream'),
 var argv = require('optimist')
     .usage('Usage: $0 -i [id string] -f [input file] -o [output file] -p [precision number]')
     .demand(['i'])
-    .default('f', 'none')
-    .default('o', 'none')
+    .default('f', null)
+    .default('o', null)
     .default('p', '9')
     .argv
 

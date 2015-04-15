@@ -1,6 +1,6 @@
 {
   "name": "geomash",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "a module that build geohash aggregations in levelDB",
   "main": "index.js",
   "directories": {
