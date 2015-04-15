@@ -46,10 +46,6 @@ To use geomash as a node module you also need to install it via `npm install geo
 
 Geohash exposes three methods: 
 
-* [add]
-* [clear]
-* [dump]
-
 ### Add
  
 Adds a feature to a geohash aggregation. 
