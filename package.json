@@ -1,0 +1,43 @@
+{
+  "name": "geomash",
+  "version": "1.0.0",
+  "description": "a module that build geohash aggregations in levelDB",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "standard && node test | tap-spec"
+  },
+  "bin":{
+    "geomash": "bin/geomash"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chelm/geomash.git"
+  },
+  "keywords": [
+    "geohash"
+  ],
+  "author": "Chris Helm",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chelm/geomash/issues"
+  },
+  "homepage": "https://github.com/chelm/geomash",
+  "dependencies": {
+    "JSONStream": "^0.10.0",
+    "async": "^0.9.0",
+    "event-stream": "^3.3.0",
+    "leveldown": "^0.10.4",
+    "levelup": "^0.19.0",
+    "ngeohash": "^0.6.0",
+    "optimist": "^0.6.1",
+    "standard": "^3.6.1",
+    "turf-centroid": "^1.1.2"
+  },
+  "devDependencies": {
+    "tap-spec": "^3.0.0",
+    "tape": "^4.0.0"
+  }
+}
