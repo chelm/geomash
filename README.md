@@ -1,6 +1,6 @@
 # Geomash
 
-A node.js module for building geohash aggregations in LevelDB.
+A node.js module for building geohash aggregations from GeoJSON files in LevelDB.
 
 ## Usage
 
@@ -14,7 +14,7 @@ To use geomash as a command line utility you have to install it globally first
 npm install geomash -g
 ```
 
-This install an executable called `geomash` that you can use to create some aggregations.
+This installs an executable called `geomash` that you can use to create some aggregations.
 
 ``` 
 Usage: geomash -i [id string] -f [input file] -o [output file] -p [precision number]
@@ -24,6 +24,12 @@ Options:
   -f  [default: "none"]
   -o  [default: "none"]
   -p  [default: "9"]
+```
+
+You can also pipe geojson files into geomash like so: 
+
+```bash
+cat data.geojson | geomash -i myid -p 6
 ```
 
 ### Node Module
@@ -42,7 +48,7 @@ geomash.add(id, feature, precision, function (err) {
 
 ## Docs
 
-Geohash exposes three methods:
+Geomash exposes three methods:
 
 ### Add
 
