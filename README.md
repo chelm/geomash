@@ -48,7 +48,7 @@ geomash.add(id, feature, precision, function (err) {
 
 ## Docs
 
-Geomash exposes three methods:
+Geomash exposes these methods:
 
 ### Add
 
@@ -67,6 +67,18 @@ Clears the geohash aggregation for a given id.
 Dumps out the geohash aggregation for a given id.
 
 `geomash.dump(id, callback)`
+
+### Insert
+
+Inserts geohash aggregation object for a given id.
+
+`geomash.insert(id, agg, callback)`
+
+### createGeoHash
+
+Creates geohash key from a feature.
+
+`geomash.createGeoHash(feature, precision, callback)`
 
 ## License
 
