@@ -3,13 +3,17 @@ var geohash = require('ngeohash'),
   centroid = require('turf-centroid'),
   db = levelup(__dirname + '/geomashdb', { valueEncoding: { encode: JSON.stringify, decode: JSON.parse } })
 
-exports.add = function (id, feature, precision, callback) {
+exports.createGeoHash = function (feature, precision) {
   if (feature.geometry.type !== 'Point') {
     feature = centroid(feature)
   }
 
   var pnt = feature.geometry.coordinates
-  var ghash = geohash.encode(pnt[1], pnt[0], precision)
+  return geohash.encode(pnt[1], pnt[0], precision)
+}
+
+exports.add = function (id, feature, precision, callback) {
+  var ghash = this.createGeoHash(feature, precision)
 
   db.get(id, function (err, entry) {
     if (err || !entry) {
@@ -45,5 +49,14 @@ exports.dump = function (id, callback) {
       return callback(err)
     }
     callback(null, entry)
+  })
+}
+
+exports.insert = function (id, agg, callback) {
+  db.put(id, agg, function (err) {
+    if (err) {
+      return callback(err)
+    }
+    callback()
   })
 }

@@ -1,13 +1,32 @@
 #!/usr/bin/env node
+
+/**
+ * Geomash CLI tool
+ * This utility is used for aggregating GeoJSON data into GeoHash grids. 
+ * Note that unlike the node module in the codebase this utility 
+ * does not persist data in a DB (for speed reasons)
+ *
+ * This utility can be used in two ways 
+ * 
+ * cat data.geojson | geomash -o out.json -p 7
+ * 
+ * OR 
+ * 
+ * geomash -f in.json -o out.json -p 7
+ * 
+ */
+
 var stream = require('JSONStream'),
   async = require('async'),
   es = require('event-stream'),
   fs = require('fs'),
   geomash = require('../')
 
+var agg = {}, 
+  hash = undefined
+
 var argv = require('optimist')
-    .usage('Usage: $0 -i [id string] -f [input file] -o [output file] -p [precision number] -v ')
-    .demand(['i'])
+    .usage('Usage: $0 -f [input file] -o [output file] -p [precision number] -v ')
     .default('f', null)
     .default('o', null)
     .default('p', '9')
@@ -16,20 +35,26 @@ var argv = require('optimist')
 var parser = stream.parse('features.*')
 
 function finish(){
-  geomash.dump(argv.i, function(err, agg){
     if (argv.o){
       fs.writeFileSync(argv.o, JSON.stringify(agg))
     } else {
       console.log(JSON.stringify(agg))
     }
-  })
 }
 
 function add(f, callback){
   if (argv.v) {
     console.log(f)
   }
-  geomash.add(argv.i, f, argv.p, callback)
+
+  var hash = geomash.createGeoHash(f, argv.p)
+  if (!agg[hash]) {
+    agg[hash] = 0
+  }
+  agg[hash]++
+
+  // calling the callback forces the next feature thru the pipe
+  callback()
 }
 
 var q = async.queue(add, 1)
@@ -38,21 +63,16 @@ q.drain = function(){
   finish()
 }
 
-geomash.clear(argv.i, function (err) {
-  if (err) {
-    return console.log('Could not clear aggregation');
-  }
-  if (argv.f){
-    var read = fs.createReadStream(argv.f);
-    read.pipe(parser)
-      .pipe(es.mapSync(function (f) {
-        q.push(f, function(){})
-      }))
-  } else {
-    process.stdin
-      .pipe(parser)
-      .pipe(es.mapSync(function (f) {
-        q.push(f, function(){})
-      }))
-  }
-})
+if (argv.f){
+  var read = fs.createReadStream(argv.f);
+  read.pipe(parser)
+    .pipe(es.mapSync(function (f) {
+      q.push(f, function(){})
+    }))
+} else {
+  process.stdin
+    .pipe(parser)
+    .pipe(es.mapSync(function (f) {
+      q.push(f, function(){})
+    }))
+}
