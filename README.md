@@ -1,13 +1,17 @@
 # Geomash
 
+<<<<<<< HEAD
 [![npm version](https://img.shields.io/npm/v/geomash.svg?style=flat-square)](https://www.npmjs.com/package/geomash)
 [![build status](https://img.shields.io/travis/chelm/geomash.svg?style=flat-square)](https://travis-ci.org/chelm/geomash)
 
 A node.js module for building geohash aggregations from GeoJSON files in LevelDB.
+=======
+A node.js module for building geohash aggregations from GeoJSON files.
+>>>>>>> updating readme
 
 ## Why geohashes
 
-This works is the result of development around pre
+This works is the result of development around aggregating lots of data into geohashes. The idea is that we can aggregate data on the server and serve these relatively small json files that tell us the count of data with a fine grid of geohashes. The geohash can be re-aggregated based on zoom and provide a nice method for view clusters of data at different scales. 
 
 ## Usage
 
@@ -58,6 +62,18 @@ geomash.add(id, feature, precision, function (err) {
     console.log(agg)
   })
 })
+```
+
+Geomash can also be used with a redis backend so it aggregations work can be done in a more distributed way. To use redis you pass in a json object containing a `host` and a `port` of your redis instance like so:
+
+``javascript
+var geomash = require('require')({
+  host: '127.0.0.1',
+  port: 6379  
+})
+
+// then everything it same
+
 ```
 
 ## Docs
