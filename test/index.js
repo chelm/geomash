@@ -1,6 +1,6 @@
 var test = require('tape'),
   fs = require('fs'),
-  geomash = require('../'),
+  geomash = require('../')(),
   points = JSON.parse(fs.readFileSync(__dirname + '/data/points.geojson')),
   polygons = JSON.parse(fs.readFileSync(__dirname + '/data/polygons.geojson'))
 

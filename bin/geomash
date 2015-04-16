@@ -20,7 +20,7 @@ var stream = require('JSONStream'),
   async = require('async'),
   es = require('event-stream'),
   fs = require('fs'),
-  geomash = require('../')
+  geomash = require('../')()
 
 var agg = {}, 
   hash = undefined
