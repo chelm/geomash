@@ -2,6 +2,10 @@
 
 A node.js module for building geohash aggregations from GeoJSON files in LevelDB.
 
+## Why geohashes
+
+This works is the result of development around pre
+
 ## Usage
 
 There are 2 ways that you can use geomash: on the command line and as a node.js module.

@@ -1,5 +1,6 @@
 var geohash = require('ngeohash'),
   levelup = require('levelup'),
+  async = require('async'),
   centroid = require('turf-centroid'),
   db = levelup(__dirname + '/geomashdb', { valueEncoding: { encode: JSON.stringify, decode: JSON.parse } })
 
@@ -32,6 +33,25 @@ exports.add = function (id, feature, precision, callback) {
       db.put(id, entry, {sync: true}, callback)
     }
   })
+}
+
+/**
+ * Adds many features to an aggregation at once
+ * @param {string} the id of the aggregation to add data to
+ * @param {array} an array of geojson features
+ * @param {function} the callback to be called when the features are all in
+ */
+exports.addMany = function (id, features, precision, callback) {
+  var self = this
+  var q = async.queue(function (feature, cb) {
+    self.add(id, feature, precision, cb)
+  }, 1)
+
+  q.drain = function () {
+    callback()
+  }
+
+  q.push(features, function () {})
 }
 
 exports.clear = function (id, callback) {

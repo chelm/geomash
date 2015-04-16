@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.0.4] - 2015-04-16
+### Added
+* new method `addMany` that can aggregate arrays of features
+
 ## [1.0.3] - 2015-04-15
 ### Changed
 * Made the CLI tool not use the DB since persistance is not needed there
