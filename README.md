@@ -41,7 +41,14 @@ cat data.geojson | geomash -i myid -p 6
 To use geomash as a node module you also need to install it via `npm install geomash`. Then in side your node app you would do something like
 
 ```javascript
-var geomash = require('require')
+// the geomash module return a function so that it can accept a redis port and host at require time.
+// passing nothing to geomash tells it to use a purely in-memory cache
+var geomash = require('geomash')({
+  redis: {
+    port: 6329,
+    host: '127.0.0.1'
+  }
+})
 
 geomash.add(id, feature, precision, function (err) {
   geomash.dump(id, function (err, agg) {
