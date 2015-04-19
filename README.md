@@ -1,13 +1,9 @@
 # Geomash
 
-<<<<<<< HEAD
 [![npm version](https://img.shields.io/npm/v/geomash.svg?style=flat-square)](https://www.npmjs.com/package/geomash)
 [![build status](https://img.shields.io/travis/chelm/geomash.svg?style=flat-square)](https://travis-ci.org/chelm/geomash)
 
-A node.js module for building geohash aggregations from GeoJSON files in LevelDB.
-=======
 A node.js module for building geohash aggregations from GeoJSON files.
->>>>>>> updating readme
 
 ## Why geohashes
 
