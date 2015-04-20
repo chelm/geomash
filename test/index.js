@@ -4,6 +4,35 @@ var test = require('tape'),
   points = JSON.parse(fs.readFileSync(__dirname + '/data/points.geojson')),
   polygons = JSON.parse(fs.readFileSync(__dirname + '/data/polygons.geojson'))
 
+test('aggregate a single point w/o a geom', function (t) {
+  var precision = 9,
+  feature = { type: 'Feature', properties: {}, geometry: null },
+  hash = geomash.createGeoHash(feature, precision)
+  t.equal(hash, undefined)
+  t.end()
+})
+
+test('aggregate a single point w/o a geom', function (t) {
+  var id = 'geomash-missing-geom-test',
+  precision = 9,
+  feature = { type: 'Feature', properties: {}, geometry: null }
+
+  // clear out the DB
+  geomash.clear(id, function (err) {
+    t.equal(err, null)
+
+    // add a single point
+    geomash.add(id, feature, precision, function (err) {
+      t.equal(err, 'geohash not created')
+      // get the geohash
+      geomash.dump(id, function (err, agg) {
+        t.equal(err, 'key not found')
+        t.end()
+      })
+    })
+  })
+})
+
 test('aggregate a single point', function (t) {
   var id = 'geomash-point-test',
     precision = 9

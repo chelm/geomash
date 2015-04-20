@@ -10,6 +10,10 @@ module.exports = function (config) {
   }
 
   this.createGeoHash = function (feature, precision) {
+    if (!feature.geometry || !feature.geometry.coordinates) {
+      return
+    }
+
     if (feature.geometry.type !== 'Point') {
       feature = centroid(feature)
     }
@@ -19,6 +23,10 @@ module.exports = function (config) {
 
   this.add = function (id, feature, precision, callback) {
     var ghash = this.createGeoHash(feature, precision)
+
+    if (!ghash) {
+      return callback('geohash not created', null)
+    }
 
     db.get(id, ghash, function (err, entry) {
       if (err || !entry) {

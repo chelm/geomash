@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.1.0] - 2015-04-20
+### Changed
+* Fixed bug with missing geometries on features
+
 ## [1.1.0] - 2015-04-16
 ### Changed 
 * replaced leveldb with redis to support using geomash in a more distributed way
@@ -31,6 +35,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 * Version 1 has support to create geohash aggregations inside leveldb
 * Support for using as node module and a CLI script that can stream data 
 
+[1.1.1]: https://github.com/chelm/geomash/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/chelm/geomash/compare/v1.0.4...v1.1.0
 [1.0.3]: https://github.com/chelm/geomash/compare/v1.0.3...v1.0.4
 [1.0.3]: https://github.com/chelm/geomash/compare/v1.0.2...v1.0.3
