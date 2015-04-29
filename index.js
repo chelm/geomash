@@ -84,5 +84,13 @@ module.exports = function (config) {
     })
   }
 
+  /**
+   * Returns the length of the geohash in the store
+   *
+   */
+  this.count = function (id, callback) {
+    db.len(id, callback)
+  }
+
   return this
 }

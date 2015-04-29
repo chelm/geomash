@@ -55,6 +55,28 @@ test('aggregate a single point', function (t) {
 
 })
 
+test('aggregate a single point and get the count', function (t) {
+  var id = 'geomash-point-test-count',
+    precision = 9
+
+  // clear out the DB
+  geomash.clear(id, function (err) {
+    t.equal(err, null)
+
+    // add a single point
+    geomash.add(id, points.features[0], precision, function (err) {
+      t.equal(err, undefined)
+      // get the geohash
+      geomash.count(id, function (err, count) {
+        t.equal(err, null)
+        t.equal(count, 1)
+        t.end()
+      })
+    })
+  })
+
+})
+
 test('aggregate many points', function (t) {
   var id = 'geomash-points-test',
     precision = 3
