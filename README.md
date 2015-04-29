@@ -106,6 +106,13 @@ Creates geohash key from a feature.
 
 `geomash.createGeoHash(feature, precision, callback)`
 
+### count
+
+Counts the length of geohash keys
+
+`geomash.count(id, callback)`
+
+
 ## License
 
 [ISC](license.txt)
